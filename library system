@@ -78,7 +78,6 @@ void searchBook() {
     printf("\n Book not found.\n");
 }
 
-// Delete book by ID
 void deleteBook() {
     if (count == 0) {
         printf("\nNo books to delete.\n");
