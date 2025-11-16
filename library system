@@ -1,0 +1,130 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct Book {
+    int id;
+    string title;
+    string author;
+    string isbn;
+};
+
+vector<Book> library;
+
+// Function to add a book
+void addBook() {
+    Book b;
+    cout << "\nEnter Book ID: ";
+    cin >> b.id;
+    cin.ignore();
+    cout << "Enter Title: ";
+    getline(cin, b.title);
+    cout << "Enter Author: ";
+    getline(cin, b.author);
+    cout << "Enter ISBN: ";
+    getline(cin, b.isbn);
+
+    library.push_back(b);
+    cout << "\n Book added successfully!\n";
+}
+
+// Function to display all books
+void displayBooks() {
+    if (library.empty()) {
+        cout << "\n No books in library.\n";
+        return;
+    }
+
+    cout << "\n--- Library Books ---\n";
+    for (auto &b : library) {
+        cout << "ID: " << b.id
+             << " | Title: " << b.title
+             << " | Author: " << b.author
+             << " | ISBN: " << b.isbn << "\n";
+    }
+}
+
+// Function to search a book by ISBN
+void searchByISBN() {
+    string isbn;
+    cout << "\nEnter ISBN to search: ";
+    cin.ignore();
+    getline(cin, isbn);
+
+    for (auto &b : library) {
+        if (b.isbn == isbn) {
+            cout << "\n Book Found:\n";
+            cout << "ID: " << b.id
+                 << " | Title: " << b.title
+                 << " | Author: " << b.author
+                 << " | ISBN: " << b.isbn << "\n";
+            return;
+        }
+    }
+    cout << "\n Book not found.\n";
+}
+
+// Function to search by Title
+void searchByTitle() {
+    string title;
+    cout << "\nEnter Title to search: ";
+    cin.ignore();
+    getline(cin, title);
+
+    for (auto &b : library) {
+        if (b.title == title) {
+            cout << "\n Book Found:\n";
+            cout << "ID: " << b.id
+                 << " | Title: " << b.title
+                 << " | Author: " << b.author
+                 << " | ISBN: " << b.isbn << "\n";
+            return;
+        }
+    }
+    cout << "\n Book not found.\n";
+}
+
+// Function to delete a book by ID
+void deleteBook() {
+    int id;
+    cout << "\nEnter Book ID to delete: ";
+    cin >> id;
+
+    for (int i = 0; i < library.size(); i++) {
+        if (library[i].id == id) {
+            library.erase(library.begin() + i);
+            cout << "\n🗑 Book deleted successfully!\n";
+            return;
+        }
+    }
+    cout << "\n Book not found.\n";
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n=====  Library Catalog Menu =====\n";
+        cout << "1. Add Book\n";
+        cout << "2. Display All Books\n";
+        cout << "3. Search Book by ISBN\n";
+        cout << "4. Search Book by Title\n";
+        cout << "5. Delete Book\n";
+        cout << "6. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1: addBook(); break;
+        case 2: displayBooks(); break;
+        case 3: searchByISBN(); break;
+        case 4: searchByTitle(); break;
+        case 5: deleteBook(); break;
+        case 6: cout << "\n Exiting... Have a great day!\n"; break;
+        default: cout << "\n Invalid choice! Try again.\n";
+        }
+    } while (choice != 6);
+
+    return 0;
+}
